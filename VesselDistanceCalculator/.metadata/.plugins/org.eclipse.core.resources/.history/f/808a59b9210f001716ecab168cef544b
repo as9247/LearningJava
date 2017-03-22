@@ -1,0 +1,12 @@
+package com.Application;
+
+public class MethodsForBothZones extends MainProgram {
+
+	public double secaSpeed;
+	
+	// Subtracts non-SECA distance from SECA distance
+		public double bothZones() {
+			double aDT = (double) speed - (double) secaSpeed;
+			return aDT;
+		}
+}
