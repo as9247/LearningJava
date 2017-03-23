@@ -10,7 +10,7 @@ public class MainProgram {
 
 	public static void main(String[] args) throws Exception {
 
-		 getConnection();
+		getConnection();
 
 		Scanner inputVariable = new Scanner(System.in);
 
@@ -28,13 +28,8 @@ public class MainProgram {
 
 		System.out.println(nIS.speedCalculator());
 
-		// This section calculates the voyage duration with no adverse weather:
-		// = OLD
-		// We prompt the user to enter where they are and based on their input,
-		// we incorporate three different methods
-		// System.out.println("Enter the distance between your port of
-		// origination and destination port: ");
-
+		// Here we give the user a selection of three options which form the
+		// basis of the final calculation
 		System.out.println("Please enter one of the three options:" + " If voyage is inside a SECA zone, type 1."
 				+ " If voyage is outside of a SECA zone, type 2." + " If your voyage is mixed, type 3.");
 		int choice = inputVariable.nextInt();
@@ -121,4 +116,6 @@ public class MainProgram {
 		}
 		return null;
 	}
+	
+	
 }
