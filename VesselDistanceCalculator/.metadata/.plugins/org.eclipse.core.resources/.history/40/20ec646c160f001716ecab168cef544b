@@ -1,0 +1,100 @@
+package com.Application;
+
+//import java.sql.*;
+import java.util.Scanner;
+
+public class MainProgram {
+
+	public static void main(String[] args) /*throws SQLException*/ {
+
+		// Accessing driver from the JAR file
+		Class.forName("com.mysql.jdbc.Driver");
+		
+		// Creating a variable fir the connection called "con"
+		Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Local instance", "root",
+					"version1998");
+
+		// root is the database user
+		// version1998 is the database password
+		
+			// create a statement
+			Statement myStatement = myConn.createStatement("select * from ships");
+
+			// Creating a variable to execute the query
+			ResultSet myResults = myStatement.executeQuery();
+
+			// process the result
+			while (myResults.next()) {
+				System.out.println(myResults.getString("ship_name") + "," + myResults.getString("ship_type"));
+			
+
+		
+
+		Scanner inputVariable = new Scanner(System.in);
+
+		MethodsNotInSeca nIS = new MethodsNotInSeca();
+
+		// System.out.println("Hello, please select an option which will connect
+		// you to the correct Distance Calc.");
+
+		// This section calculates the speed per day of your vessel:
+		System.out.println("Enter the speed of your voyage: ");
+
+		nIS.speed = inputVariable.nextDouble();
+
+		System.out.println(nIS.speedCalculator());
+
+		// This section calculates the voyage duration with no adverse weather:
+		System.out.println("Enter the distance between your port of origination and destination port: ");
+
+		nIS.distance = inputVariable.nextDouble();
+
+		System.out.println(nIS.noInclementWeather());
+
+		// This section calculates the voyage duration with adverse weather:
+		System.out.println("If there are adverse weather conditions, please enter a value for the delay: ");
+
+		nIS.weatherDelay = inputVariable.nextDouble();
+
+		System.out.println(nIS.InclementWeather());
+
+		// And here, we add the last two sections together!
+		System.out.printf("With the weather factor taken into consideration, this voyage will take: " + "%.2f" + "\n",
+				+nIS.voyageDurationNoBunkers());
+
+		// Now we include the costs of bunker fuels to this voyage
+		System.out.println("Please enter your expected bunker costs: $");
+
+		nIS.bunkerPrice = inputVariable.nextDouble();
+
+		System.out.println("And enter your estimated fuel consumption: ");
+
+		nIS.consumption = inputVariable.nextDouble();
+
+		System.out.printf("The cumulative costs for this leg of your voyage are: " + "%.2f" + "\n",
+				+nIS.voyageDurationWithBunkers());
+
+		// Calculating the cost of staying in port on top of our
+		// voyageDurationWithBunkers
+		System.out.println("Please enter the number of days you'll be in port for: ");
+		nIS.portDays = inputVariable.nextDouble();
+
+		System.out.printf("Based on the number of port days " + nIS.portDays + ". The total duration of this voyage is "
+				+ "%.2f" + "\n", +nIS.totalDays());
+
+		// Therefore, the total cost per day in USD$ is found bY:
+		System.out.printf("This voyage will cost $" + "%.2f" + "\n", +nIS.totalCost());
+
+		// And finally, the time charter rate:
+		System.out.println("Enter a rate for the TC: ");
+		nIS.tcRate = inputVariable.nextDouble();
+
+		System.out.println("Based on the TC rate of " + nIS.tcRate + ".");
+
+		System.out.printf("The total cost per day is: $" + "%.2f" + "\n", +nIS.totalPerDay());
+
+		inputVariable.close();
+
+	}
+
+}

@@ -1,3 +1,4 @@
 activeuserprofiles=Monty;Team
 eclipse.preferences.version=1
 org.eclipse.rse.systemtype.local.systemType.defaultUserId=alexstubbings
+useridperkey=Monty.Local\=alexstubbings;
