@@ -2,11 +2,11 @@ package com.Application;
 
 public class MethodsForBothZones extends MethodsNotInSeca {
 
-	public double secaSpeed;
-	
+	public double secaSpeed, secaDistanceM;
+
 	// Subtracts non-SECA distance from SECA distance
-		public double secaNonSecaDistanceTravelled() {
-			double aDT = (double) speed - (double) secaSpeed;
-			return aDT;
-		}
+	public double bothZones() {
+		double aDT = (double) distance - (double) secaDistanceM;
+		return aDT;
+	}
 }

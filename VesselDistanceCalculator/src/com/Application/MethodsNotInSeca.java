@@ -4,6 +4,9 @@ class MethodsNotInSeca {
 
 	public double speed, distance, weatherDelay, bunkerPrice, consumption, portDays, tcRate;
 
+	// For consumption, should this be defined via a setter and getter? I.e. to
+	// limit the selection of fuel consumption?
+
 	// need to consider in unit testing what happens when 0 is passed!
 	public double speedCalculator() {
 		double s = (double) speed * 24;
@@ -11,18 +14,18 @@ class MethodsNotInSeca {
 	}
 
 	// need to consider in unit testing what happens when 0 is passed!
-	public double noInclementWeather() {
+	public double notInSeca() {
 		double nIW = (double) distance / (double) speedCalculator();
 		return nIW;
 	}
 
 	public double InclementWeather() {
-		double IW = ((double) weatherDelay / 100) * (double) noInclementWeather();
+		double IW = ((double) weatherDelay / 100) * (double) notInSeca();
 		return IW;
 	}
 
 	public double voyageDurationNoBunkers() {
-		double vDNB = (double) noInclementWeather() + (double) InclementWeather();
+		double vDNB = (double) notInSeca() + (double) InclementWeather();
 		return vDNB;
 	}
 
@@ -32,12 +35,12 @@ class MethodsNotInSeca {
 	}
 
 	public double totalDays() {
-		double tD = (double) portDays + (double) noInclementWeather();
+		double tD = (double) portDays + (double) notInSeca();
 		return tD;
 	}
 
 	public double totalCost() {
-		double tC = (double) voyageDurationWithBunkers() / (double) noInclementWeather();
+		double tC = (double) voyageDurationWithBunkers() / (double) notInSeca();
 		return tC;
 	}
 
@@ -52,7 +55,7 @@ class MethodsNotInSeca {
 	}
 
 	public double totalPerDay() {
-		double tPD = (double) calculatedTC() / (double) noInclementWeather();
+		double tPD = (double) calculatedTC() / (double) notInSeca();
 		return tPD;
 	}
 }

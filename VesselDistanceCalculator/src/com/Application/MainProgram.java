@@ -1,33 +1,22 @@
 package com.Application;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.Scanner;
+
+import javax.swing.plaf.synth.SynthSpinnerUI;
 
 public class MainProgram {
 
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws Exception {
 
-		// get a connection to the DB
-		
-			Connection myConn = DriverManager.getConnection("Application:mysql://localhost:3306/Local instance", "root",
-					"");
+		 getConnection();
 
-			// create a statement
-			Statement myStatement = myConn.createStatement();
-
-			// execute SQL
-			ResultSet myResults = myStatement.executeQuery("select * from ships");
-
-			// process the result
-			while (myResults.next()) {
-				System.out.println(myResults.getString("ship_name") + "," + myResults.getString("ship_type"));
-			}
-
-		
-
-		/*Scanner inputVariable = new Scanner(System.in);
+		Scanner inputVariable = new Scanner(System.in);
 
 		MethodsNotInSeca nIS = new MethodsNotInSeca();
+		MethodsInSeca iS = new MethodsInSeca();
+		MethodsForBothZones fBZ = new MethodsForBothZones();
 
 		// System.out.println("Hello, please select an option which will connect
 		// you to the correct Distance Calc.");
@@ -40,11 +29,35 @@ public class MainProgram {
 		System.out.println(nIS.speedCalculator());
 
 		// This section calculates the voyage duration with no adverse weather:
-		System.out.println("Enter the distance between your port of origination and destination port: ");
+		// = OLD
+		// We prompt the user to enter where they are and based on their input,
+		// we incorporate three different methods
+		// System.out.println("Enter the distance between your port of
+		// origination and destination port: ");
 
-		nIS.distance = inputVariable.nextDouble();
+		System.out.println("Please enter one of the three options:" + " If voyage is inside a SECA zone, type 1."
+				+ " If voyage is outside of a SECA zone, type 2." + " If your voyage is mixed, type 3.");
+		int choice = inputVariable.nextInt();
 
-		System.out.println(nIS.noInclementWeather());
+		switch (choice) {
+		case 1:
+			System.out.println("Enter the distance of your voyage: ");
+			nIS.distance = inputVariable.nextDouble();
+			System.out.println(nIS.notInSeca());
+			break;
+		case 2:
+			System.out.println("Enter the distance of your voyage: ");
+			iS.secaDistance = inputVariable.nextDouble();
+			System.out.println(iS.distanceInSeca());
+			break;
+		case 3:
+			System.out.println("Enter the distance outside of the SECA zone: ");
+			fBZ.distance = inputVariable.nextDouble();
+			System.out.println("Enter the distance travelled inside the SECA zone: ");
+			fBZ.secaDistanceM = inputVariable.nextDouble();
+			System.out.println(fBZ.bothZones());
+			break;
+		}
 
 		// This section calculates the voyage duration with adverse weather:
 		System.out.println("If there are adverse weather conditions, please enter a value for the delay: ");
@@ -88,8 +101,24 @@ public class MainProgram {
 
 		System.out.printf("The total cost per day is: $" + "%.2f" + "\n", +nIS.totalPerDay());
 
-		inputVariable.close();*/
+		inputVariable.close();
 
 	}
 
+	public static Connection getConnection() throws Exception {
+		try {
+			String driver = "com.mysql.jdbc.Driver";
+			String url = "jdbc:mysql://localhost:3306/ships";
+			String username = "root";
+			String password = "version1998";
+			Class.forName(driver);
+
+			Connection myConn = DriverManager.getConnection(url, username, password);
+			System.out.println("Connected");
+			return myConn;
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
 }
