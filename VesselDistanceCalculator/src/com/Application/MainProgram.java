@@ -2,9 +2,13 @@ package com.Application;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.plaf.synth.SynthSpinnerUI;
+
+import com.mysql.jdbc.PreparedStatement;
 
 public class MainProgram {
 
@@ -66,9 +70,16 @@ public class MainProgram {
 				+nIS.voyageDurationNoBunkers());
 
 		// Now we include the costs of bunker fuels to this voyage
-		System.out.println("Please enter your expected bunker costs: $");
 
-		nIS.bunkerPrice = inputVariable.nextDouble();
+		get();
+		ArrayList bunkerList = new ArrayList();
+		System.out.println("Please select which port you would like bunkers from:"
+				+ " Antwerp, Busan, Cape Town, Fujairah, Houston, Istanbul, Kaoshing, Las Palmas, Maracaibo, New Orleans, Piraeus, Rotterdam, Singapore."
+				+ " Type your reponse below: ");
+		bunkerList.
+		inputVariable.nextDouble();
+		
+		// nIS.bunkerPrice = inputVariable.nextDouble();
 
 		System.out.println("And enter your estimated fuel consumption: ");
 
@@ -116,6 +127,32 @@ public class MainProgram {
 		}
 		return null;
 	}
+
 	
+	public static ArrayList<String> get() throws Exception {
+		try {
+			Connection myConn = getConnection();
+			PreparedStatement statement = (PreparedStatement) myConn.prepareStatement("SELECT Location FROM bunkerData");
+
+			ResultSet result = statement.executeQuery();
+
+			ArrayList<String> array = new ArrayList<String>();
+			while (result.next()) {
+				//System.out.println("Please enter the name of the port you wish to purchase bunkers from: ");
+				System.out.println(result.getMetaData());
+				//System.out.println(result.getString(" "));
+				System.out.println(" ");
+
+				array.add(result.getString(" "));
+			}
+			System.out.println("The port's bunker prices have been imported. Please select an appropriate fuel.");
+			return array;
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		// You return null if there is no data in the record
+		return null;
+	}
 	
+
 }
